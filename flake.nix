@@ -22,6 +22,7 @@
             uvicorn
             pydantic
             pytest
+            sqlalchemy
           ]
         );
       in

@@ -106,6 +106,25 @@ def list_tasks(project_id: str, service: TaskService = Depends(get_task_service)
         raise to_http(e)
 
 
+@router.patch("/tasks/{task_id}", response_model=TaskOut)
+def update_task(
+    task_id: str, body: TaskUpdate, service: TaskService = Depends(get_task_service)
+):
+    try:
+        task = service.update_task(task_id, body.title, body.due_date, body.status)
+        return TaskOut(
+            id=task.id,
+            project_id=task.project_id,
+            title=task.title,
+            status=task.status,
+            due_date=task.due_date,
+            priority_score=task.priority_score,
+        )
+
+    except Exception as e:
+        raise to_http(e)
+
+
 @router.delete("/tasks/{task_id}", status_code=204)
 def delete_task(task_id: str, service: TaskService = Depends(get_task_service)):
     try:

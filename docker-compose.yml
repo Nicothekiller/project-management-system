@@ -1,9 +1,28 @@
 services:
+  project-management-system-db:
+    image: postgres:16
+    container_name: project-management-system-db
+    environment:
+      - POSTGRES_DB=project_management
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    ports:
+      - "5432:5432"
+    volumes:
+      - pm-data:/var/lib/postgresql/data
+
   api:
     build: .
     container_name: project-management-system
+    environment:
+      - REPO_BACKEND=postgres
+      - DB_URL=postgresql://root:root@project-management-system-db:5432/project-management
     ports:
       - "8000:8000"
     volumes:
       - .:/app
     restart: unless-stopped
+
+
+volumes:
+  pm-data:
