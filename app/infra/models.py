@@ -26,7 +26,7 @@ class TaskModel(Base):
 
     title: Mapped[str] = mapped_column(String, nullable=False)
     status: Mapped[str] = mapped_column(String, nullable=False)
-    due_date: Mapped[Date | None] = mapped_column(Date, nullable=True)
+    due_date: Mapped[date | None] = mapped_column(Date, nullable=True)
 
     task_type: Mapped[str] = mapped_column(String, nullable=False)
 
