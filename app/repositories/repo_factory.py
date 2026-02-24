@@ -51,3 +51,8 @@ class PostgesRepoFactory(RepoFactory):
     @override
     def create_task_repo(self):
         return self._task_repo
+
+
+def build_repo_factory() -> RepoFactory:
+    backend = os.getenv("REPO_BACKEND", "memory").lower()
+    return RepoFactory()

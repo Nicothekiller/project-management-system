@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 
+from app.repositories.repo_factory import build_repo_factory
 from app.domain.exceptions import (
     DomainError,
     NotFoundError,
@@ -13,6 +14,7 @@ from app.schemas.dto import ProjectCreate, ProjectOut, TaskCreate, TaskOut, Task
 
 router = APIRouter()
 
+factory = build_repo_factory()
 project_repo = InMemoryProjectRepo()
 task_repo = InMemoryTaskRepo()
 
